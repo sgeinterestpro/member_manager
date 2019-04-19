@@ -1,0 +1,165 @@
+{% extends "mem_base.html" %}  
+{% block content %}
+
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">会员列表</li>
+          </ol>
+
+          
+<form class="layui-form" method="post" action="/mem_list/hand_user_edit">
+        {% csrf_token %}
+        
+          <input type=hidden name="user_id" value="{{ user.id }}">
+  <div class="layui-form-item">
+    <label class="layui-form-label">姓名</label>
+    <div class="layui-input-block">
+        <input type="text" name="first_name" value="{{ user.first_name }}" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">用户名</label>
+    <div class="layui-input-block">
+        <input  type="text" value="{{ user.username }}" name="username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+    <div class="layui-form-item">
+        <label class="layui-form-label">新密码</label>
+    <div class="layui-input-block">
+        <input type="text" name="password" value="" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">重复密码</label>
+    <div class="layui-input-block">
+        <input type="text" name="confirm_password" value="" lay-verify="required" placeholder="请输入重复密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+                                                                         
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+    <div class="layui-input-block">
+        <input type="text" name="email" value="{{ user.email }}" lay-verify="required" placeholder="请输入重复密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+
+
+
+
+
+  <!--<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">编辑器</label>
+    <div class="layui-input-block">
+      <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+    </div>
+  </div>-->
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+        <input type="submit" class="layui-btn" value="立即修改">
+    </div>
+  </div>
+</form>     
+          
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  form.render('radio');
+  //日期
+  laydate.render({
+    elem: '#date'
+  });
+  laydate.render({
+    elem: '#date1'
+  });
+  
+  //创建一个编辑器
+  var editIndex = layedit.build('LAY_demo_editor');
+ 
+  //自定义验证规则
+  form.verify({
+    title: function(value){
+      if(value.length < 5){
+        return '标题至少得5个字符啊';
+      }
+    }
+    ,pass: [
+      /^[\S]{6,12}$/
+      ,'密码必须6到12位，且不能出现空格'
+    ]
+    ,content: function(value){
+      layedit.sync(editIndex);
+    }
+  });
+  
+  //监听指定开关
+  form.on('switch(switchTest)', function(data){
+    layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+      offset: '6px'
+    });
+    layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+  });
+  
+  //监听提交
+  form.on('submit(demo1)', function(data){
+    layer.alert(JSON.stringify(data.field), {
+      title: '最终的提交信息'
+    })
+    return false;
+  });
+ 
+  //表单初始赋值
+  form.val('example', {
+    "username": "贤心" // "name": "value"
+    ,"password": "123456"
+    ,"interest": 1
+    ,"like[write]": true //复选框选中状态
+    ,"close": true //开关状态
+    ,"sex": "女"
+    ,"desc": "我爱 layui"
+  })
+  
+  
+});
+</script>
+
+          
+          
+          
+          
+          
+          
+          
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+ {% endblock %}

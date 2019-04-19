@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin - Login</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template-->
+    <link href="/static/css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+  <body class="bg-dark">
+
+    <div class="container">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+          <div id="login_form" method="post">
+             {% csrf_token %}
+              <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" name="username" id="firstName" class="form-control" placeholder="User name" required="required" autofocus="autofocus">
+                <label for="firstName">User name</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                <label for="inputPassword">Password</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input name="remember" type="checkbox" value="remember-me">
+                  Remember Password
+                </label>
+              </div>
+            </div>
+            <span class="error_tip"></span>
+            <input id="login" class="btn btn-primary btn-block" type="submit" value=Login>
+          </div>
+          <div class="text-center">
+            <a class="d-block small mt-3" href="/user/register">Register an Account</a>
+            <a class="d-block small" href="">Forgot Password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+        <style>
+            .error_tip{float:left;height:30px;line-height:30px;margin-left:70px;color:#e62e2e;display:none;}
+        </style>
+
+
+
+    <script>
+    $(function(){
+            data_is_empty = false;
+
+            function check_is_empty(){
+                var user_name = $('#firstName').val();
+                var pwd = $('#inputPassword').val();
+                if(user_name == "" || pwd == ""){
+                    data_is_empty = false;
+                }else{
+                    data_is_empty = true;
+                }
+            }
+
+            $('#login').click(function(){
+			//	alert("点击事件");
+                check_is_empty();
+                if(!data_is_empty){
+                    $('.error_tip').html('请填写完整数据！');
+                    $('.error_tip').show();
+                   return;
+
+                }
+                $.ajax({
+                        url:"/user/login_hand",
+                        type:"POST",
+                        dataType:"json",
+                        data:{
+                            "username":$('#firstName').val(),
+                            "pwd":$('#inputPassword').val(),
+                        },
+                        success:function(arg){
+                            if(arg.rsp_code == 0){
+                                if(arg.is_super == 1){
+                                    location.href = "/mem_list/member_list";
+                                }else{
+                                    location.href = "/mem_common/index";
+                                }
+                            }else{
+                           		$('.error_tip').html(arg.rsp_msg);
+                                $('.error_tip').show();
+                                return false; 
+                            }
+                        
+                        },
+						error:function(arg){
+							$('.error_tip').html("系统错误");
+                            $('.error_tip').show();
+                            return false;  							
+						}
+                        })
+                    
+                    })
+            
+            })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,552 @@
+/*comman style*/
+.error {
+  border: 1px solid red !important;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+}
+
+/*header style*/
+.container-fluid {
+  font-weight: bold;
+  background-color: #026aa7;
+}
+
+header.navbar-default {
+  border: 0;
+}
+
+.menu, .search {
+  text-align: left;
+  margin-left: 5px;
+  float: left;
+}
+
+.search {
+  width: 190px;
+}
+
+.search input {
+  background-color: #3784c6;
+}
+
+.search input:focus {
+  width: 380px;
+  background-color: #f5f5f5;
+}
+
+.logo {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  text-align: center;
+  line-height: 34px;
+  margin-left: -67px;
+}
+
+.logo img {
+  height: 34px;
+  width: auto;
+}
+
+.logo a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo span {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.user {
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+}
+
+/*making .menu, .search, .user verical align center*/
+header .row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+/*calendar style*/
+.calendar-wrapper {
+  position: fixed;
+  top: 57px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  overflow: hidden;
+}
+
+.calendar-header .row {
+  position: relative;
+  /* z-index这里设置非auto会针对子元素创建新的context */
+  z-index: 1;
+}
+
+.calendar-title {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /*这里设置z-index为负值使title元素不遮挡周视图、月视图、回到今天等按钮，使其丧失hover和点击效果*/
+  z-index: -1;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 34px;
+  font-size: 18px;
+  color: #4d4d4d;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.calendar-today {
+  float: left;
+  margin-left: 8px;
+}
+
+.calendar-next-pre {
+  float: left;
+  margin-left: 8px;
+}
+
+.calendar-view {
+  float: right;
+  margin-right: 15px;
+  text-align: right;
+}
+
+/* 垂直方向 */
+.scroll-bar-ver {
+  position: absolute;
+  top: 85px;
+  bottom: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.day-of-week {
+  margin: 10px 0;
+}
+
+.day-of-week div {
+  float: left;
+  width: 14.2857%;
+  text-align: center;
+}
+
+.day-cell {
+  position: relative;
+  width: 14.2857%;
+  background-color: #f0efee;
+}
+
+@media (max-width: 768px) {
+  .day-cell {
+    height: 50px;
+  }
+
+  .scroll-bar-ver {
+    overflow-y: hidden;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 769px) {
+  .day-cell {
+    height: 105px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .day-cell {
+    height: 140px;
+  }
+}
+
+.day-cell:hover {
+  background-color: #d6d6d6;
+}
+
+.in-month {
+  background-color: #e4e4e4;
+}
+
+/* 月视图下前5列点击向右扩展 */
+.calendar-table tr td:nth-child(1) .active,
+.calendar-table tr td:nth-child(2) .active,
+.calendar-table tr td:nth-child(3) .active,
+.calendar-table tr td:nth-child(4) .active,
+.calendar-table tr td:nth-child(5) .active
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 270px;
+  height: 350px;
+  z-index: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: inherit;
+  box-shadow: 0 0 6px rgba(0,0,0,.35),
+              0 0 1px rgba(0,0,0,.1);
+}
+
+/* 月视图下6、7列点击向左扩展 */
+.calendar-table tr td:last-child .active,
+.calendar-table tr td:nth-last-child(2) .active
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 270px;
+  height: 350px;
+  z-index: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: inherit;
+  box-shadow: 0 0 6px rgba(0,0,0,.35),
+              0 0 1px rgba(0,0,0,.1);
+}
+
+.calendar-day {
+  padding: 8px;
+}
+
+.calendar-day:not(.active) {
+  height: 100%;
+}
+
+.calendar-table tr td {
+  border: 5px solid #f5f5f5;
+  border-radius: 12px;
+}
+
+.calendar-table tr > td:not(:first-child) .day-cell {
+  border-left: 0;
+}
+
+/*滚动条样式*/
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+} /* 这是针对缺省样式 (必须的) */
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #eee;
+} /* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar-thumb {
+	  border-radius: 5px;
+	  background-color: #ccc;
+} /* 滑块颜色 */
+::-webkit-scrollbar-button {
+	  display: none;
+} /* 滑轨两头的监听按钮颜色 */
+::-webkit-scrollbar-corner {
+	  background-color: #eee;
+} /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+
+/*水平方向*/
+.scroll-bar-hor {
+  position: absolute;
+  top: 85px;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.calendar-weeks-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.week {
+  float: left;
+  height: 100%;
+}
+
+.day-col {
+  position: relative;
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  height: 100%;
+  background-color: #e2e4e6;
+}
+
+.day-col:hover {
+  /* 通过调节l通道使hover的背景色更暗一些 借用color-picker插件可以获取非hover状态下的hsl值*/
+  background-color: hsl(209, 7%, 86%);
+}
+
+.day-col.today:hover,
+.day-cell.today:hover {
+  background-color: #ede5cf;
+}
+
+.day-header {
+  cursor: pointer;
+}
+
+.day-header h3 {
+  display: inline-block;
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #4d4d4d;
+}
+
+.day-header .close-btn {
+  float: right;
+}
+
+.close-btn {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.close-btn:before {
+  content: "\2716";
+}
+
+.close-btn:hover,
+.close-btn:link,
+.close-btn:active {
+  color: #666;
+  text-decoration: none;
+}
+
+.calendar-day:not(.active) .close-btn {
+  display: none;
+}
+
+.num-meetings {
+  display: inline-block;
+  color: #8c8c8c;
+}
+
+.calendar-day .meeting-lists {
+  position: absolute;
+  top: 34px;
+  left: 8px;
+  right: 5px;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.calendar-day.active .meeting-lists {
+  bottom: 34px;
+}
+
+.calendar-day .link-book-meeting {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 5px;
+}
+
+.calendar-day:not(.active) .link-book-meeting {
+  display: none;
+}
+
+.quiet-btn {
+  display: block;
+  color: #8c8c8c;
+  padding: 6px 8px;
+  border-radius: 3px;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.quiet-btn:hover {
+  color: #8c8c8c;
+  background-color: #ccc;
+}
+
+.week .day-col:nth-child(1) .active,
+.week .day-col:nth-child(2) .active,
+.week .day-col:nth-child(3) .active,
+.week .day-col:nth-child(4) .active,
+.week .day-col:nth-child(5) .active {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  bottom: 2px;
+  width: 270px;
+  z-index: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: inherit;
+  box-shadow: 0 0 6px rgba(0,0,0,.35),
+              0 0 1px rgba(0,0,0,.1);
+}
+
+.week .day-col:nth-child(6) .active,
+.week .day-col:last-child .active {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  bottom: 2px;
+  width: 270px;
+  z-index: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: inherit;
+  box-shadow: 0 0 6px rgba(0,0,0,.35),
+              0 0 1px rgba(0,0,0,.1);
+}
+
+/*弹出框样式*/
+.pop-over {
+  display: none;
+  position: absolute;
+  /*top: 200px;*/
+  z-index: 70;
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(0,0,0,.15);
+}
+
+.is-shown {
+  display: block;
+}
+
+.pop-over-header {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.pop-over-header-title {
+  display: block;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 8px;
+  text-align: center;
+  border-bottom: 1px solid #d6dadc;
+  color: #8c8c8c;
+}
+
+.position-right {
+  position: absolute;
+  top: 0;
+  right: 8px;
+}
+
+.input-meeting-title {
+  margin: 2px 0 8px 0;
+  padding: 7px;
+  resize: vertical;
+  box-sizing: border-box;
+  width: 100%;
+  height: 72px;
+  border: 1px solid #cdd2d4;
+  border-radius: 3px;
+  background-color: #e2e4e6;
+}
+
+.input-meeting-title:focus {
+  background-color: #fff;
+}
+
+.list-btn-link {
+  margin-bottom: 8px;
+}
+
+.list-btn-link.setting {
+  position: relative;
+  padding: 7px;
+  height: 52px;
+  border: 1px solid #e2e4e6;
+  border-bottom-color: #cdd2d4;
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 99;
+  background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%);
+}
+
+.list-btn-link:hover {
+  color: #fff;
+  background: linear-gradient(to bottom,#5cadd6,#5cadd6);
+}
+
+.list-btn-link:hover .setting-label {
+  color: #fff;
+}
+
+.setting-label {
+  display: block;
+  font-size: 9px;
+  line-height: 14px;
+  color: #8c8c8c;
+}
+
+.setting-value {
+  display: block;
+  font-size: 18px;
+  line-height: 24px;
+  overflow: hidden;
+}
+
+.list-btn-link.setting select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  border: none;
+  opacity: 0;
+  z-index: 2;
+  color: #4d4d4d;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.meeting-duration .list-btn-link:first-child {
+  margin-right: 8px;
+}
+
+.btn-book-meeting {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.today {
+  background-color: #ede5cf;
+}
+
+/* 日历中显示的会议室是预定信息样式定义 */
+.meeting-card {
+    margin: 0 0 5px 0;
+    padding: 4px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.card-title {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.badge-normal {
+    background-color: #5cb85c;
+}
+
+.badge-warning {
+    background-color: #f0ad4e;
+}
+
+.badge-danger {
+    background-color: #d9534f;
+}

@@ -1,0 +1,78 @@
+{% extends "mem_base.html" %}  
+{% block content %}
+
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">申请列表</li>
+          </ol>
+
+          <!-- DataTables Example -->
+          <div class="card mb-3">
+              <div class="card-header">
+                                <i class="fas fa-table"></i>
+                                           <a href=""></a></div> 
+                          <div class="card-body">
+
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>编号</th>
+                      <th>申请人</th>
+                      <th>IP</th>
+                      <th>账户</th>
+                      <th>密码</th>
+                      <th>申请状态</th>
+                      <th>申请说明</th>
+                      <th>失败原因</th>
+                      <th>设置</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+            {% for apply in apply_list  %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ apply.user.first_name }}</td>
+                        <td>{{ apply.host.mem_ip }}</td>
+                        <td>{{ apply.host.mem_login_name }}</td>
+                        <td>{{ apply.host.mem_login_pwd }}</td>
+                        <td>{% if apply.apply_status == 1 %}审核中{% elif apply.apply_status == 2 %}申请成功{% elif apply.apply_status == 4 %}已撤销{%else%}申请失败{% endif %}</td>
+                        <td>{{ apply.remark }}</td>
+                        <td>{{ apply.fail_reason }}</td>
+                        <td>{% if apply.apply_status == 1%}<a href="/mem_list/apply_pass/{{ apply.id }}">通过</a>  
+                        <a href="/mem_list/refuse/{{ apply.id }}">拒绝{% endif %}</a></td>
+                    </tr>
+    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+
+          <p class="small text-center text-muted my-5">
+            <em>More table examples coming soon...</em>
+          </p>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+  {% endblock %}

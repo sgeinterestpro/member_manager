@@ -1,0 +1,101 @@
+{% extends "com_base.html" %}  
+{% block content %}
+
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">会员列表</li>
+          </ol>
+
+          
+<form class="layui-form" method="post" action="/mem_list/hand_user_edit">
+        {% csrf_token %}
+        
+          <input type=hidden name="user_id" value="{{ user.id }}">
+  <div class="layui-form-item">
+    <label class="layui-form-label">姓名</label>
+    <div class="layui-input-block">
+        <input type="text" name="first_name" value="{{ user.first_name }}" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">用户名</label>
+    <div class="layui-input-block">
+        <input  type="text" value="{{ user.username }}" name="username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+    <div class="layui-form-item">
+        <label class="layui-form-label">新密码</label>
+    <div class="layui-input-block">
+        <input type="text" name="password" value="" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">重复密码</label>
+    <div class="layui-input-block">
+        <input type="text" name="confirm_password" value="" lay-verify="required" placeholder="请输入重复密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+                                                                         
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+    <div class="layui-input-block">
+        <input type="text" name="email" value="{{ user.email }}" lay-verify="required" placeholder="请输入重复密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <!--<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">编辑器</label>
+    <div class="layui-input-block">
+      <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+    </div>
+  </div>-->
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+        <input type="submit" class="layui-btn" value="立即修改">
+    </div>
+  </div>
+</form>     
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+  {% endblock %}

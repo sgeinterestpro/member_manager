@@ -1,0 +1,153 @@
+{% extends "mem_base.html" %}  
+{% block content %}
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">会员列表</li>
+          </ol>
+
+          
+<div id="add_form" method="post">
+        {% csrf_token %}
+  <div class="layui-form-item">
+    <label class="layui-form-label">ip</label>
+    <div class="layui-input-block">
+      <input type="text" id="mem_ip" name="mem_ip" lay-verify="required" placeholder="请输入ip" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">用户名</label>
+    <div class="layui-input-block">
+      <input value = "" type="text" id="mem_login_name" name="mem_login_name" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+    <div class="layui-form-item">
+    <label class="layui-form-label">密码</label>
+    <div class="layui-input-block">
+      <input type="text" id="mem_login_pwd" name="mem_login_pwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">备注</label>
+    <div class="layui-input-block">
+      <textarea id="mem_remark" name="mem_remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+    </div>
+  </div>
+  <span class="error_tip"></span>
+<br/>
+  <!--<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">编辑器</label>
+    <div class="layui-input-block">
+      <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+    </div>
+  </div>-->
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+        <input id="add_hand" type="submit" class="layui-btn" value="立即提交">
+    </div>
+  </div>
+</div>     
+          
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+          
+          
+          
+          
+          
+          
+ 
+    
+    <style>
+    .error_tip{float:left;height:20px;line-height:20px;margin-left:70px;color:#e62e2e;display:none;}
+    </style>
+
+
+<script>
+    $(function() {
+            data_is_empty = false;
+            ip_is_error = false;
+            
+            function check_data() {
+                var re = new RegExp("^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$");
+                var mem_ip = $('#mem_ip').val();
+                var mem_login_name = $('#mem_login_name').val();
+                var mem_login_pwd = $('#mem_login_pwd').val();
+                var mem_remark = $('#mem_remark').val();
+                if(mem_ip == "" || mem_login_name == "" || mem_login_pwd == ""){
+                    data_is_empty = false;
+                }else{
+                    data_is_empty = true;
+                }
+                if(re.test(mem_ip)){
+                    ip_is_error = true;
+                }else{
+                    ip_is_error = true;
+                }
+
+
+            }
+            $('#add_hand').click(function(){
+                        check_data();    
+                        if(!data_is_empty){
+                        	$('.error_tip').html('请填写完整数据！');
+		                    $('.error_tip').show();
+        		            return;
+                        }
+						if(!ip_is_error){
+                        	$('.error_tip').html('ip格式不正确，请重新输入！');
+		                    $('.error_tip').show();
+        		            return;
+						}
+						$.ajax({
+							url:"/mem_list/add_hand",
+							type:"POST",
+							dataType:"json",
+							data:{
+								"mem_ip":$('#mem_ip').val(),
+								"mem_login_name":$('#mem_login_name').val(),
+								"mem_login_pwd":$('#mem_login_pwd').val(),
+								"mem_remark":$('#mem_remark').val(),
+							},
+							success:function(arg){
+								if(arg.rsp_code == 0){
+									location.href = "/mem_list/member_list";
+	                                return;
+								}else{
+									$('.error_tip').html(arg.rsp_msg);
+									$('.error_tip').show();
+									return;
+								}
+							},
+							error:function(arg){
+									$('.error_tip').html("系统错误!");
+									$('.error_tip').show();
+									return;
+								}
+
+							
+						})
+
+                    })
+
+
+
+
+            })
+
+</script>
+{% endblock %}
+
+
+
+

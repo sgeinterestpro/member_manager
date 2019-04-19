@@ -1,0 +1,74 @@
+{% extends "mem_base.html" %}  
+{% block content %}
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">会员列表</li>
+          </ol>
+
+          <!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <a href="/mem_list/add">增加</a></div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>编号</th>
+                      <th>IP</th>
+                      <th>用户名</th>
+                      <th>密码</th>
+                      <th>使用者</th>
+                      <th>备注</th>
+                      <th>注册时间</th>
+                      <th>设置</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+            {% for member in member_list  %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ member.mem_ip }}</td>
+                        <td>{{ member.mem_login_name }}</td>
+                        <td>{{ member.mem_login_pwd }}</td>
+                        <td></td>
+                        <td>{{ member.mem_remark }}</td>
+                        <td>{{ member.add_date }}</td>
+                        <td><a  href="/mem_list/member_edit/{{ member.id }}">修改</a> <a href="/mem_list/delete/{{ member.id }}">删除</a></td>
+                    </tr>
+        {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+
+          <p class="small text-center text-muted my-5">
+            <em>More table examples coming soon...</em>
+          </p>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+{% endblock %}
