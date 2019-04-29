@@ -29,6 +29,7 @@ $(function() {
     var today = new Date();
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     today = today.getTime();
+    //console.log(parseTime(today.toString()));
     return parseTime(today.toString());
   }
 
@@ -821,7 +822,6 @@ $(function() {
     meeting_info.room = $(".js-list-value").eq(0).text();
     meeting_info.start = $(".js-list-value").eq(1).text();
     meeting_info.end = $(".js-list-value").eq(2).text();
-    console.log("111111111");
 
     // 模拟触发一次textarea元素的blur事件、select元素的change事件，使UI错误提示工作
     $(".input-meeting-title").trigger("blur");
@@ -835,9 +835,12 @@ $(function() {
         url: "/easyMeeting/addmeeting",
         contentType: "application/json;charset='utf-8'",
         data: JSON.stringify(meeting_info)
+        //data: meeting_info
       }).done(function(meeting_info) {
         // 注册成功则切换至登录页面并自动补全用户名和密码
         if (meeting_info !== null) {
+          console.log("return`")
+          console.log(meeting_info);
           var meeting_card = meetingCardFormat(false, meeting_info.id,
                                           meeting_info.title, meeting_info.room,
                                           meeting_info.start, meeting_info.end);

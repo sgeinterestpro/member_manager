@@ -16,12 +16,11 @@ class Meetings(BaseModel):
 class Reserve(BaseModel):
     """预定信息表"""
     user = models.ForeignKey(User, verbose_name="预定人")
-    meet_title = models.CharField(max_length=60,verbose_name="会议内容")
+    title = models.CharField(max_length=60,verbose_name="会议内容")
     meeting = models.ForeignKey(Meetings, verbose_name="会议室")
-    numbers = models.IntegerField(verbose_name="参会人数")
-    start_dtime = models.DateTimeField(verbose_name="开始时间")
-    end_dtime = models.DateTimeField(verbose_name="结束时间")
-    create_dtime = models.DateTimeField(verbose_name="创建时间")
+    start = models.TimeField(verbose_name="开始时间")
+    end = models.TimeField(verbose_name="结束时间")
+    timestamp = models.DateField(verbose_name="创建时间")
     class Meta:
         db_table = "Reserve"
 
