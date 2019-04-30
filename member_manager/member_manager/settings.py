@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mem_user',
     'mem_list',
+    'meeting',
 )
 
 MIDDLEWARE_CLASSES = (

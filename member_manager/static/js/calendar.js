@@ -401,11 +401,14 @@ $(function() {
     }).done(function(response_meetings) {
       // 使用全局变量记录当前页面显示的月视图下的会议室信息，用于定时刷新会议室任务与server端
       // 返回的数据进行比对
-      window.last_month_meetings = response_meetings;
-
-      response_meetings.forEach(function(meeting) {
-        var $meeting_lists = $("td[name=" + meeting[1] + "] .meeting-lists");
+      window.last_month_meetings = response_meetings['meetinfo'];
+      console.log(response_meetings['meetinfo']);
+      response_meetings['meetinfo'].forEach(function(meeting) {
+        var $meeting_lists = $("td[name=" + meeting['1'] + "] .meeting-lists");
         var ishide = $meeting_lists.parent().hasClass("active")? "" : true;
+        console.log("ishide is");
+        console.log(ishide)
+       // ishide = "";
         var meeting_card = meetingCardFormat(ishide, meeting[0], meeting[2], meeting[3],
                                          meeting[4], meeting[5]);
         $meeting_lists.append(meeting_card);
@@ -426,9 +429,9 @@ $(function() {
     }).done(function(response_meetings) {
       // 使用全局变量记录当前页面显示的周视图下的会议室信息，用于定时刷新会议室任务与server端
       // 返回的数据进行比对
-      window.last_week_meetings = response_meetings;
+      window.last_week_meetings = response_meetings['meetinfo'];
 
-      response_meetings.forEach(function(meeting) {
+      response_meetings['meetinfo'].forEach(function(meeting) {
         var $meeting_lists = $(".day-col[name=" + meeting[1] + "] .meeting-lists");
         var ishide = $meeting_lists.parent().hasClass("active")? "" : true;
         var meeting_card = meetingCardFormat(ishide, meeting[0], meeting[2], meeting[3],
@@ -839,6 +842,7 @@ $(function() {
       }).done(function(meeting_info) {
         // 注册成功则切换至登录页面并自动补全用户名和密码
         if (meeting_info !== null) {
+          console.log(meeting_info[1])
           console.log("return`")
           console.log(meeting_info);
           var meeting_card = meetingCardFormat(false, meeting_info.id,
@@ -896,12 +900,13 @@ $(function() {
     }).done(function(response_meetings) {
       // 使用全局变量记录当前页面显示的月视图下的会议室信息，用于定时刷新会议室任务与server端
       // 返回的数据进行比对
-      window.month_meetings = response_meetings;
+      window.month_meetings = response_meetings['meetinfo'];
       var change_meetings = diffMeetings(window.last_month_meetings,
                                          window.month_meetings);
       // 更新last_month_meetings为当前值
-      window.last_month_meetings = response_meetings;
+      window.last_month_meetings = response_meetings['meetinfo'];
 
+      console.log(response_meetings['meetinfo']);
       // 刷新month view页面的会议室预定信息
       change_meetings.forEach(function(meeting) {
         // 新增会议室
@@ -926,11 +931,11 @@ $(function() {
     }).done(function(response_meetings) {
       // 使用全局变量记录当前页面显示的月视图下的会议室信息，用于定时刷新会议室任务与server端
       // 返回的数据进行比对
-      window.week_meetings = response_meetings;
+      window.week_meetings = response_meetings['meetinfo'];
       var change_meetings = diffMeetings(window.last_week_meetings,
                                          window.month_meetings);
       // 更新last_month_meetings为当前值
-      window.last_week_meetings = response_meetings;
+      window.last_week_meetings = response_meetings['meetinfo'];
 
       // 刷新month view页面的会议室预定信息
       change_meetings.forEach(function(meeting) {
