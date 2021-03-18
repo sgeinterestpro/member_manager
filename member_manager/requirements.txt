@@ -19,7 +19,7 @@ itsdangerous==0.24
 jieba==0.39
 kombu==3.0.37
 mutagen==1.40.0
-Pillow==3.4.1
+Pillow==8.1.1
 pycryptodome==3.5.1
 PyMySQL==0.7.11
 python-alipay-sdk==1.6.0
